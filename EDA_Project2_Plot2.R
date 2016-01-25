@@ -3,9 +3,9 @@
 ### Jan 2016
 ### Local Location -  C:\Users\p622403\gitEDA\EDA_PlottingW1
 ### Save location - \\wtors003\isg-secure\ISG Big Data\R\Source
-### File Name - EDA_Project2_Plot1.R 
+### File Name - EDA_Project2_Plot2.R 
 ### *********************************************************************************
-runProject2_Plot1 <- function() {
+runProject2_Plot2 <- function() {
   require("dplyr")
   require("sqldf")
   require("tcltk")
@@ -35,7 +35,7 @@ runProject2_Plot1 <- function() {
   # for each of the years 1999, 2002, 2005, and 2008.
   print("Group emissions by year")
   ##############################################################################################################
-  dfGroupByYear <- sqldf("select year, sum(Emissions) as Emissions  from dfNEI group by year")
+  dfGroupByYear <- sqldf("select year, sum(Emissions) as Emissions  from dfNEI where fips = '24510' group by year")
   print(paste("     number of rows dfGroupByYear:", nrow(dfGroupByYear)))
   print(paste("     number of colss dfGroupByYear:", ncol(dfGroupByYear)))
   print(colnames(dfGroupByYear))
@@ -43,10 +43,10 @@ runProject2_Plot1 <- function() {
   
   strYLabel <- expression('total PM'[2.5]*' emission')
   strXLabel <- c("years")
-  strTitle <- expression('Total PM'[2.5]*' emissions at various years')
-  png('plot1.png')
+  strTitle <- expression('Total PM'[2.5]*' emissions in Baltimore City at various years')
+  png('plot2.png')
   barplot(height=dfGroupByYear$Emissions, names.arg=dfGroupByYear$year
-          , xlab=strXYLabel
+          , xlab=strXLabel
           , ylab=strYLabel
           ,main=strTitle)
   dev.off()
